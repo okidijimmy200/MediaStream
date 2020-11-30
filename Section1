@@ -101,3 +101,28 @@ The video API::
 --To retrieve the video file associated with a single media post, we will implement a get
 video API that will accept a GET request at '/api/medias/video/:mediaId' and
 query both the Media collection and GridFS files.
+
+Lecture 6:
+Using a React media player to render the video::
+--In the frontend of the application, we can render the video file being streamed from
+MongoDB GridFS in a media player. A good option for a React-flavored media player
+is the ReactPlayer component, available as a node module, which can be
+customized as required. Providing the video stream as a source to a default
+ReactPlayer component will render with basic player controls,
+
+--we need to install the corresponding node module
+
+************yarn add react-player***********
+
+--Once installed, we can import it into any React component and add it to the view. For
+basic usage with the default controls provided by the browser, we can add it to any
+React view in any application that has access to the ID of the media to be rendered
+
+<ReactPlayer url={'/api/media/video/'+media._id} controls/>
+
+--This will load the player with the video stream that was received from the get video
+API and provide the user with basic control options to interact with the stream being
+played. ReactPlayer can be customized so that more options are available. We will
+explore some of these advanced options for customizing this ReactPlayer with our
+own controls.
+

@@ -1,0 +1,19 @@
+Building a Media Streaming Application
+Intro
+--Introducing MERN Mediastream
+--Uploading videos to MongoDB GridFS
+--Storing and retrieving media details
+--Streaming videos from GridFS to a basic media player
+--Listing, displaying, updating, and deleting media
+
+Lecture 1:
+Introducing MERN Mediastream::
+--This will be a simple video streaming application that allows registered
+users to upload videos that can be streamed by anyone browsing the application.
+--We will add new React components to implement views for uploading a new video,
+listing already posted media, modifying media post details, and displaying a video
+where users can interact with the video content to stream and watch it. We will also
+modify existing components such as the Home component so we can render a list of
+popular videos and the Profile component so we can list all the videos that are
+posted by a given user. These uploading and streaming capabilities in the application
+will rely on the user's ability to upload video content

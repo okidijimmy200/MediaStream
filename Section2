@@ -1,0 +1,30 @@
+Lecture 1:
+Listing Media:
+--we will add list views of relevant media with a snapshot of
+each video to give visitors easier access and an overview of the videos on the
+application.
+--We will set up list APIs in the backend to retrieve different lists, such as videos
+uploaded by a single user and the most popular videos with the highest views in the
+application. Then, these retrieved lists can be rendered in a
+reusable MediaList component, which will receive a list of media objects as a prop
+from a parent component that fetches the specific API.
+
+The MediaList component::
+--The MediaList component is a reusable component that will take a list of media and
+iterate through it to render each media item in the view. In MERN Mediastream, we
+use it to render a list of the most popular media in the home view and a list of media
+uploaded by a specific user in their profile
+
+--media list component we use it to render two different lists of
+media: a list of popular media and a list of media posted by a specific user. In the next
+section, we will look at how to retrieve a list of popular media from the database to
+render it in the frontend.
+
+Listing popular media::
+--For popular media, we will set up a route that receives a GET
+request at /api/media/popular.
+
+Listing media by users::
+--To be able to retrieve a list of media that's been uploaded by a specific user from the
+database, we will set up an API with a route that accepts a GET request at
+'/api/media/by/:userId'

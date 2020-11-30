@@ -63,6 +63,8 @@ export default function Profile({ match }) {
 
   }, [match.params.userId])
   
+  /**we use the fetch method in the Profile component, similar to the listPopular fetch method we used in the home view, to retrieve the list data, set it
+to the state, and then pass it to a MediaList component. This will render a profile page with a list of media that was posted by the corresponding us */
   useEffect(() => {
     const abortController = new AbortController()
     const signal = abortController.signal

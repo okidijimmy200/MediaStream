@@ -22,6 +22,8 @@ video and post it on the application */
   }
 }
 
+/**This API can be used in the frontend with a fetch request. You can define a
+corresponding fetch method in api-media.js to make the */
 const listPopular = async (signal) => {
   try {
     let response = await fetch('/api/media/popular', {
@@ -38,6 +40,9 @@ const listPopular = async (signal) => {
   }
 }
 
+/**This API can be used in the frontend with a fetch request. You can define a
+corresponding fetch method in api-media.js to make the request, similar to other
+API implementations */
 const listByUser = async (params) => {
   try {
     let response = await fetch('/api/media/by/'+ params.userId, {

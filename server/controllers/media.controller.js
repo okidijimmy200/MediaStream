@@ -152,8 +152,12 @@ media player in the frontend view. */
   }
 }
 
+/**The listPopular controller method will query the Media collection and retrieve nine media documents
+that have the highest views in the whole collection. */
 const listPopular = async (req, res) => {
   try{
+    /**The result that's returned by the query to the Media collection is sorted by the number of views in descending order and limited to nine. Each media document in
+this list will also contain the name and ID of the user who posted it since we are calling populate to add these user attributes. */
     let media = await Media.find({}).limit(9)
     .populate('postedBy', '_id name')
     .sort('-views')
@@ -166,10 +170,15 @@ const listPopular = async (req, res) => {
   }
 }
 
+/**The listByUser controller method will query the Media collection to find media documents that have
+postedBy values matching with the userId attached as a parameter in the URL. */
 const listByUser = async (req, res) => {
   try{
     let media = await Media.find({postedBy: req.profile._id})
+  /**. Each media document in this list will also contain the name and ID of the user who posted it since we are
+calling populate to add these user attributes */
       .populate('postedBy', '_id name')
+      // The result that's returned from the query to the Media collection is sorted by the date it was created on, with the latest post showing up first
       .sort('-created')
       .exec()
     res.json(media)

@@ -53,10 +53,17 @@ export default function MediaList(props) {
   const classes = useStyles()
   return (
     <div className={classes.root}>
+      {/* The MediaList component is a reusable component that will take a list of media and
+iterate through it to render each media item in the view. In MERN Mediastream, we
+use it to render a list of the most popular media in the home view and a list of media
+uploaded by a specific user in their profile */}
       <GridList className={classes.gridList} cols={3}>
         {props.media.map((tile, i) => (
           <GridListTile key={i} className={classes.tile}>
             <Link to={"/media/"+tile._id}>
+              {/* ReactPlayer component, which renders the video URL
+without showing any controls. In the view, this gives the visitor a brief overview of
+each piece of media, as well as a glimpse of the video content. */}
               <ReactPlayer url={'/api/media/video/'+tile._id} width='100%' height='inherit' style={{maxHeight: '100%'}}/>
             </Link>
             <GridListTileBar className={classes.tileBar}

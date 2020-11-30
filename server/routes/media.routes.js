@@ -16,13 +16,19 @@ query both the Media collection and GridFS files. */
 router.route('/api/media/video/:mediaId')
     .get(mediaCtrl.video)
 
+/**-For popular media, we will set up a route that receives a GET request at /api/media/popular.
+ * A GET request to this URL will invoke the listPopular method
+ */
 router.route('/api/media/popular')
     .get(mediaCtrl.listPopular)
 
 router.route('/api/media/related/:mediaId')
     .get(mediaCtrl.listRelated)
 
+    /**To be able to retrieve a list of media that's been uploaded by a specific user from the database, we will set up an API with a route that accepts a GET request at
+'/api/media/by/:userId' */
 router.route('/api/media/by/:userId')
+/**A GET request to this route will invoke the listByUser method */
     .get(mediaCtrl.listByUser)
 
 router.route('/api/media/:mediaId')

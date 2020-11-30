@@ -24,12 +24,16 @@ export default function Home(){
   const [media, setMedia] = useState([])
 
   useEffect(() => {
+    /**listpopular the fetch method can be called in a React component,
+such as in the Home component for this application */
     const abortController = new AbortController()
     const signal = abortController.signal
     listPopular(signal).then((data) => {
       if (data.error) {
         console.log(data.error)
       } else {
+        /**The list that's fetched from the API in this hook is set in the state so that it can be
+passed to a MediaList component in the view. */
         setMedia(data)
       }
     })
@@ -42,6 +46,8 @@ export default function Home(){
         <Typography variant="h2" className={classes.title}>
           Popular Videos
         </Typography>
+        {/* This will render a list of up to nine of the most popular videos from the database on
+the home page */}
           <MediaList media={media}/>
       </Card>
   )

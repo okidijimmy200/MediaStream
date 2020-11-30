@@ -89,3 +89,15 @@ which is a FormData object that ensures the data is stored in the correct format
 the multipart/form-data encoding type.
 --This link can be added to any view, such as in the Menu component, so that it's
 rendered conditionally when users are signed in.
+
+Lecture 5:
+Retrieving and streaming media::
+--Any visitor browsing through the MERN Mediastream application will be able to
+view the media posted on the application by its users. Implementing this feature will
+require streaming the video files stored in MongoDB GridFS to the requesting client
+and rendering the stream in a media player.
+
+The video API::
+--To retrieve the video file associated with a single media post, we will implement a get
+video API that will accept a GET request at '/api/medias/video/:mediaId' and
+query both the Media collection and GridFS files.

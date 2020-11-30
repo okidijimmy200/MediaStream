@@ -56,21 +56,30 @@ ID. */
     })
 }
 
+/**The :mediaId parameter in the route URL will be processed in the mediaByID controller to fetch the associated document from the Media collection and file details
+from GridFS */
 const mediaByID = async (req, res, next, id) => {
   try{
+    /**To retrieve the relevant file details from GridFS, we use find from the MongoDB streaming API. We query the files stored in GridFS by the filename value, which
+should match the corresponding media ID in the Media collection */
   let media = await Media.findById(id).populate('postedBy', '_id name').exec()
     if (!media)
       return res.status('400').json({
         error: "Media not found"
       })
       req.media = media
+     /**Then, we receive the resulting matching file records in an array and attach the first result to the request
+object so that it can be used in the next method. */
       let files = await gridfs.find({filename:media._id}).toArray()
         if (!files[0]) {
           return res.status(404).send({
             error: 'No video found'
           })
         }     
+         /**These retrieved results are then attached to the request object so that it can be used in the video controller method as required. */
         req.file = files[0]
+        /**The next method that's invoked when this API receives a request is the video
+controller method */
         next()
     }catch(err) {
       return res.status(404).send({
@@ -79,7 +88,11 @@ const mediaByID = async (req, res, next, id) => {
     }
 }
 
+/**video controller depending on whether the request contains range headers, we send back the correct chunks of video with the related content
+information set as response headers. */
 const video = (req, res) => {
+  /**with the response composed depending on the existence of range
+headers in the request. */
   const range = req.headers["range"]
   if (range && typeof range === "string") {
     const parts = range.replace(/bytes=/, "").split("-")
@@ -90,18 +103,37 @@ const video = (req, res) => {
     const end = partialend ? parseInt(partialend, 10) : req.file.length - 1
     const chunksize = (end - start) + 1
 
+    /**If the request contains range headers – for example, when the user drags to the
+middle of the video and starts playing from that point – we need to convert the
+received range headers to the start and end positions, which will correspond with the
+correct chunks stored in GridFS */
     res.writeHead(206, {
+      /**We also set the response headers with additional file details, including content length, range, and
+type. */
         'Accept-Ranges': 'bytes',
+/**The content length will now be the total size of the content within the defined range. Therefore, the readable stream that's piped back to the response, in this case,
+will only contain the chunks of file data that fall within the start and end ranges. */
         'Content-Length': chunksize,
         'Content-Range': 'bytes ' + start + '-' + end + '/' + req.file.length,
         'Content-Type': req.file.contentType
     })
 
-    let downloadStream = gridfs.openDownloadStream(req.file._id, {start, end: end+1})
+    /**if the request does not contain range headers, we stream back
+the whole video file using gridfs.openDownloadStream, which gives us a readable
+stream of the corresponding file stored in GridFS */
+    let downloadStream = gridfs.openDownloadStream(req.file._id, {
+      // We pass the start and end values that have been extracted from the header as a range to gridfs.openDownloadStream
+      /**These start and end values specify the 0-based offset in bytes to start streaming from and stop streaming before. */
+      start, end: end+1})
+    /**This is piped with the response sent
+back to the client. In the response header, we set the content type and total length of
+the file. */
     downloadStream.pipe(res)
     downloadStream.on('error', () => {
       res.sendStatus(404)
     })
+    /**The final readable stream that's piped to the response after a request is received at this get video API can be rendered directly in a basic HTML5 media player or a Reactflavored
+media player in the frontend view. */
     downloadStream.on('end', () => {
       res.end()
     })

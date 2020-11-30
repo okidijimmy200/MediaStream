@@ -11,6 +11,8 @@ router.route('/api/media/new/:userId')
 /**A POST request to the create route URL, /api/media/new/:userId, will make sure the user is signed in and then initiate the create method in the media controller. */
     .post(authCtrl.requireSignin, mediaCtrl.create)
 
+/**To retrieve the video file associated with a single media post, we will implement a get video API that will accept a GET request at '/api/medias/video/:mediaId' and
+query both the Media collection and GridFS files. */
 router.route('/api/media/video/:mediaId')
     .get(mediaCtrl.video)
 
@@ -33,6 +35,11 @@ router.route('/api/media/:mediaId')
      * The user object becomes available in the request object to be used in the next method that will be executed.
      */
 router.param('userId', userCtrl.userByID)
+
+/**declare the route above and along with a way to handle the :mediaId parameter in the URL. */
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/**The :mediaId parameter in the route URL will be processed in the mediaByID controller to fetch the associated document from the Media collection and file details
+from GridFS */
 router.param('mediaId', mediaCtrl.mediaByID)
 
 export default router

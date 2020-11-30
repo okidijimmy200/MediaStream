@@ -36,4 +36,36 @@ updated, and a reference to the user who posted the media.
 
 --The fields that were added to the schema definition will only store details about each
 video that's posted to the application. In order to store the video content itself, we will
-use MongoDB GridFS
+use MongoDB GridFS.
+
+Lecture 3:
+Using MongoDB GridFS to store large files::
+--In previous chapters, we discussed how files uploaded by users could be stored
+directly in MongoDB as binary data; for example, when adding a profile photo.
+--But this only worked for files smaller than 16 MB. In order to store larger
+files in MongoDB, such as video files needed for this streaming application, we will
+need to use GridFS.
+
+--GridFS is a specification in MongoDB that allows us to store large files in MongoDB
+by dividing a given file into several chunks. Each chunk can be a maximum of 255 KB
+in size, and is stored as a separate document. When the file has to be retrieved in
+response to a query to GridFS, the chunks are reassembled as needed. This opens up
+the option to fetch and load only parts of the file as required, rather than retrieving
+the whole file.
+
+--In the case of storing and retrieving video files for the MERN Mediastream
+application, we will utilize GridFS to store video files and stream parts of the video,
+depending on which part the user skips to and starts playing from.
+
+--To access and work with MongoDB GridFS from our backend code, we will use
+the Node.js MongoDB driver's streaming API by creating a GridFSBucket with the
+established database connection.
+
+NB::
+--GridFSBucket is the GridFS streaming interface that gives us access
+to the streaming GridFS API. It can be used to interact with files in
+GridFS.
+--we will add a create media form view and an API in the backend, which will use this gridfs
+object to save the video file that's uploaded with the request that's sent from the form
+view in the frontend.
+

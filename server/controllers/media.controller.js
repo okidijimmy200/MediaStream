@@ -5,8 +5,12 @@ import formidable from 'formidable'
 import fs from 'fs'
 
 //media streaming
+/**Since we are using Mongoose to establish a connection with the MongoDB database for our application, we will add the following code to initialize a new GridFSBucket
+with this database connection after it has been established. */
 import mongoose from 'mongoose'
 let gridfs = null
+/**The gridfs object we created here will give us access to the GridFS functionalities that are required to store the video file when new media is created and to fetch the
+file when the media is to be streamed back to the user. */
 mongoose.connection.on('connected', () => {
   gridfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db)
 })

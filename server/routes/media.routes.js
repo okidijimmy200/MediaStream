@@ -41,6 +41,9 @@ post. */
 /**When a PUT request is received at 'api/media/:mediaId', the server will ensure the signed-in user is the original poster of the media content by calling the isPoster
 controller method */
     .put(authCtrl.requireSignin, mediaCtrl.isPoster, mediaCtrl.update)
+    /**backend, which will accept a DELETE request from a client at /api/media/:mediaId. */
+    /**When the server receives a DELETE request at '/api/media/:mediaId', it will make sure the signed-in user is the original poster of the media by invoking the
+isPoster controller method */
     .delete(authCtrl.requireSignin, mediaCtrl.isPoster, mediaCtrl.remove)
 
     // we will declare the create media route and utilize the userByID method from the user controller

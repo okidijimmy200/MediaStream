@@ -96,6 +96,9 @@ and submits the form */
     }
 }
 
+/**you will  need a fetch method wch will  take
+the media ID and the current user's auth credentials in order to call the delete media
+API with these values. */
 const remove = async (params, credentials) => {
   try {
     let response = await fetch('/api/media/' + params.mediaId, {

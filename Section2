@@ -81,6 +81,21 @@ media remains as it is in the database.
 -This link is added with an edit icon in the Media component, allowing the user who
 posted the media to access the edit page.
 
+Lecture 4:
+Deleting media::
+--An authorized user can completely delete the media they uploaded to the application,
+including the media document in the Media collection and the file chunks stored in
+MongoDB using GridFS
+
+The delete media API::
+--The fetch method will be used when the user performs the delete operation by
+clicking a button in the frontend interface.
+
+The DeleteMedia component::
+--The DeleteMedia component is added to the Media component and is only visible to
+the signed-in user who added this specific media. This component is basically a
+button that, when clicked, opens a Dialog component asking the user to confirm
+the delete action,
 
 
 

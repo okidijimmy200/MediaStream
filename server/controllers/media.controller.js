@@ -240,10 +240,12 @@ authorized, the update controller method will be called next in order to update 
   next()
 }
 
+/**the remove controller method will completely delete the specified media from the database. */
 const remove = async (req, res) => {
   try {
     let media = req.media
     let deletedMedia = await media.remove()
+    // Besides deleting the media record from the Media collection, we are also using gridfs to remove the associated file details and chunks stored in the database
     gridfs.delete(req.file._id)
     res.json(deletedMedia)
   } catch(err) {

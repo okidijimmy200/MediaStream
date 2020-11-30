@@ -12,6 +12,7 @@ import auth from './../auth/auth-helper'
 import {remove} from './api-media.js'
 import {Redirect} from 'react-router-dom'
 
+// This DeleteMedia component takes the media ID and title as props when it is added in the Media component
 export default function DeleteMedia(props) {
   const [open, setOpen] = useState(false)
   const [redirect, setRedirect] = useState(false)
@@ -43,6 +44,8 @@ export default function DeleteMedia(props) {
       <DeleteIcon/>
     </IconButton>
 
+{/* This DeleteMedia component takes the media ID and title as props when it is added
+in the Media component */}
     <Dialog open={open} onClose={handleRequestClose}>
       <DialogTitle>{"Delete "+props.mediaTitle}</DialogTitle>
       <DialogContent>

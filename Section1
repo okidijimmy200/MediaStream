@@ -16,4 +16,24 @@ where users can interact with the video content to stream and watch it. We will 
 modify existing components such as the Home component so we can render a list of
 popular videos and the Profile component so we can list all the videos that are
 posted by a given user. These uploading and streaming capabilities in the application
-will rely on the user's ability to upload video content
+will rely on the user's ability to upload video content.
+
+Lecture 2:
+Uploading and storing media::
+--Registered users on the MERN Mediastream application will be able to upload videos
+from their local files to store each video and related details directly on MongoDB
+using GridFS. To enable uploading media content to the application, we need to
+define how to store media details and the video content and implement a full-stack
+slice that will let users create a new media post and upload a video file
+
+Defining a Media model::
+--We will implement a Mongoose model to define a Media model for storing the details
+of each piece of media that's posted to the application.
+
+--The Media schema in this model will have fields to record the media title,
+description, genre, number of views, dates of when the media was posted and
+updated, and a reference to the user who posted the media.
+
+--The fields that were added to the schema definition will only store details about each
+video that's posted to the application. In order to store the video content itself, we will
+use MongoDB GridFS

@@ -69,3 +69,23 @@ GridFS.
 object to save the video file that's uploaded with the request that's sent from the form
 view in the frontend.
 
+Lecture 4:
+Creating a new media post::
+--For a user to be able to create a new media post on the application, we will need to integrate a full-stack slice that allows the user to fill out a form in the frontend and
+then save both the provided media details and the associated video file in the database in the backend.
+
+The create media API:::
+****yarn add formidable************
+
+The NewMedia component::
+--Registered users on the MERN Mediastream application will interact with a form
+view to enter details of a new media post. This form view will be rendered in the
+NewMedia component, which will allow a signed-in user to create a media post by
+entering the title, description, and genre of the video and uploading a video file from
+their local filesystem.
+
+--This clickSubmit function will take the input values and populate mediaData,
+which is a FormData object that ensures the data is stored in the correct format for
+the multipart/form-data encoding type.
+--This link can be added to any view, such as in the Menu component, so that it's
+rendered conditionally when users are signed in.

@@ -16,6 +16,9 @@ mongoose.connection.on('connected', () => {
 })
 
 const create = (req, res) => {
+  /**The create controller method will use the formidable node module to parse the
+multipart request body that will contain the media details and video file uploaded by
+the user. */
   let form = new formidable.IncomingForm()
   form.keepExtensions = true
   form.parse(req, async (err, fields, files) => {
@@ -24,11 +27,21 @@ const create = (req, res) => {
           error: "Video could not be uploaded"
         })
       }
+            /**In the create method, we will use the media fields that have been received in the
+form data and parsed with formidable to generate a new Media object and then
+save it to the database */
       let media = new Media(fields)
       media.postedBy= req.profile
       if(files.video){
+  /**If there is a file in the request, formidable will store it temporarily in the filesystem.
+We will use this temporary file and the media object's ID to create a writable stream
+with gridfs.openUploadStream. Here, the temporary file will be read and then
+written into MongoDB GridFS, while setting the filename value to the media ID. */
         let writestream = gridfs.openUploadStream(media._id, {
           contentType: files.video.type || 'binary/octet-stream'})
+          /**This will generate the associated chunks and file information documents in
+MongoDB, and when it is time to retrieve this file, we will identify it with the media
+ID. */
         fs.createReadStream(files.video.path).pipe(writestream)
       }
       try {

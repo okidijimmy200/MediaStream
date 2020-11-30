@@ -5,7 +5,10 @@ import mediaCtrl from '../controllers/media.controller'
 
 const router = express.Router()
 
+/**a create media API in the backend to allow users to create new media posts on the application. e API will receive a POST request at '/api/media/new/:userId' with the multipart body content containing the media
+fields and the uploaded video file. */
 router.route('/api/media/new/:userId')
+/**A POST request to the create route URL, /api/media/new/:userId, will make sure the user is signed in and then initiate the create method in the media controller. */
     .post(authCtrl.requireSignin, mediaCtrl.create)
 
 router.route('/api/media/video/:mediaId')
@@ -25,6 +28,10 @@ router.route('/api/media/:mediaId')
     .put(authCtrl.requireSignin, mediaCtrl.isPoster, mediaCtrl.update)
     .delete(authCtrl.requireSignin, mediaCtrl.isPoster, mediaCtrl.remove)
 
+    // we will declare the create media route and utilize the userByID method from the user controller
+    /**The userByID method processes the :userId parameter that's passed in the URL and retrieves the associated user from the database.
+     * The user object becomes available in the request object to be used in the next method that will be executed.
+     */
 router.param('userId', userCtrl.userByID)
 router.param('mediaId', mediaCtrl.mediaByID)
 

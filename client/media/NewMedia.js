@@ -58,12 +58,16 @@ export default function NewMedia(){
   })
   const jwt = auth.isAuthenticated()
 
+  /**you can complete this form view by adding a Submit button, which, when clicked, should send the form data to the server */
   const clickSubmit = () => {
+    /**This clickSubmit function will take the input values and populate mediaData, which is a FormData object that ensures the data is stored in the correct format for
+the multipart/form-data encoding type */
     let mediaData = new FormData()
     values.title && mediaData.append('title', values.title)
     values.video && mediaData.append('video', values.video)
     values.description && mediaData.append('description', values.description)
     values.genre && mediaData.append('genre', values.genre)
+    /**the create fetch method is called to create the new media in the backend with this form data. */
     create({
       userId: jwt.user._id
     }, {
@@ -76,14 +80,18 @@ export default function NewMedia(){
       }
     })
   }
+  /**These form field changes will be tracked with the handleChange method when a
+user interacts with the input fields to enter values */
 
   const handleChange = name => event => {
+    /**The handleChange method updates the state with the new values, including the
+name of the video file, if one is uploaded by the user */
     const value = name === 'video'
       ? event.target.files[0]
       : event.target.value
     setValues({...values, [name]: value })
   }
-
+/**On successful media creation, the user may be redirected to a different view as desired, for example, to a Media view with the new media details, */
     if (values.redirect) {
       return (<Redirect to={'/media/' + values.mediaId}/>)
     }
@@ -93,6 +101,9 @@ export default function NewMedia(){
           <Typography type="headline" component="h1" className={classes.title}>
             New Video
           </Typography>
+          {/* In the file input element, we specify that it accepts video files, so when the user
+clicks on Upload and browses through their local folders, they only have the option
+to upload a video file */}
           <input accept="video/*" onChange={handleChange('video')} className={classes.input} id="icon-button-file" type="file" />
           <label htmlFor="icon-button-file">
             <Button color="secondary" variant="contained" component="span">
@@ -100,6 +111,8 @@ export default function NewMedia(){
               <FileUpload/>
             </Button>
           </label> <span className={classes.filename}>{values.video ? values.video.name : ''}</span><br/>
+          {/* in the view, we add the title, description, and genre form fields with
+the TextField components, */}
           <TextField id="title" label="Title" className={classes.textField} value={values.title} onChange={handleChange('title')} margin="normal"/><br/>
           <TextField
             id="multiline-flexible"

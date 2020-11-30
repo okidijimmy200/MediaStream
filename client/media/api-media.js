@@ -74,8 +74,13 @@ read API route using a fetch */
   }
 }
 
+/**To access the update API in the frontend, we will add a corresponding fetch method
+in api-media.js that takes the necessary user auth credentials and media details as
+parameters before making the fetch call to this update media API */
 const update = async (params, credentials, media) => {
   try {
+    /**This fetch method will be used in the media edit form when the user makes updates
+and submits the form */
     let response = await fetch('/api/media/' + params.mediaId, {
     method: 'PUT',
     headers: {

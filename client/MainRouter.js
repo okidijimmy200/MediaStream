@@ -27,6 +27,9 @@ const MainRouter = ({data}) => {
 add a PrivateRoute in the MainRouter component, which will render this form
 only for authenticated users at /media/new */}
         <PrivateRoute path="/media/new" component={NewMedia}/>
+        {/* This EditMedia component can only be accessed by signed-in users and will be
+rendered at '/media/edit/:mediaId'. Due to this, we will add a PrivateRoute in
+the MainRouter component */}
         <PrivateRoute path="/media/edit/:mediaId" component={EditMedia}/>
         <Route path="/media/:mediaId" render={(props) => (
             <PlayMedia {...props} data={data} />

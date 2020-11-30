@@ -44,6 +44,9 @@ filename:{
 }
 }))
 
+/**The media edit form, which will allow an authorized user to make changes to the
+details of a media post, will be similar to the new media form. However, it will not
+have an upload option, and the fields will be pre-populated with the existing value */
 export default function EditProfile({ match }) {
   const classes = useStyles()
   const [media, setMedia] = useState({title: '', description:'', genre:''})
@@ -51,6 +54,8 @@ export default function EditProfile({ match }) {
   const [error, setError] = useState('')
   const jwt = auth.isAuthenticated()
 
+  /**The EditMedia component containing this form will fetch the existing values of the
+media by calling the read media API in a useEffect hook */
   useEffect(() => {
     const abortController = new AbortController()
     const signal = abortController.signal
@@ -59,6 +64,7 @@ export default function EditProfile({ match }) {
       if (data.error) {
         setError(data.error)
       } else {
+        //The retrieved media details are set to state so that the values can be rendered in the text fields
         setMedia(data)
       }
     })
@@ -67,8 +73,13 @@ export default function EditProfile({ match }) {
     }
   }, [match.params.mediaId])
 
+  /**When the user is done editing and clicks submit, a call will be made to the update API with the required credentials
+and the changed media values. */
   const clickSubmit = () => {
     const jwt = auth.isAuthenticated()
+    /**The call to the update media API will update the media details in the corresponding
+media document in the Media collection, while the video file associated with the
+media remains as it is in the database. */
     update({
       mediaId: media._id
     }, {
@@ -82,8 +93,13 @@ export default function EditProfile({ match }) {
     })
   }
 
+  /**When a user updates any of the values in the form, the changes will be registered in
+the media object in state with a call to the handleChange method. */
+
   const handleChange = name => event => {
     let updatedMedia = {...media}
+    /**the specific field that's being updated in the form is reflected in the
+corresponding attribute in the media object in state. */
     updatedMedia[name] = event.target.value
     setMedia(updatedMedia)
   }

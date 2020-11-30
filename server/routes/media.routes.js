@@ -35,6 +35,11 @@ router.route('/api/media/by/:userId')
 response */
 router.route('/api/media/:mediaId')
     .get( mediaCtrl.incrementViews, mediaCtrl.read)
+/**, we will need an API that allows us to update existing media in the database if the user making the request is the authorized creator of the given media
+post. */
+/////////////////////////////////////////////////////////////////////
+/**When a PUT request is received at 'api/media/:mediaId', the server will ensure the signed-in user is the original poster of the media content by calling the isPoster
+controller method */
     .put(authCtrl.requireSignin, mediaCtrl.isPoster, mediaCtrl.update)
     .delete(authCtrl.requireSignin, mediaCtrl.isPoster, mediaCtrl.remove)
 

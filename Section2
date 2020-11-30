@@ -58,3 +58,30 @@ the video in a basic ReactPlayer with default browser controls.
 --In the parent component will fetch the media from the server in a useEffect
 hook, set it to state, and add it to the Media component
 
+Lecture 3:
+Updating media details::
+--Registered users will have access to an edit form for each of their media uploads.
+Updating and submitting this form will save the changes to the given document in
+the Media collection.
+--To implement this capability, we will have to create a backend
+API that allows the update operation on a given media after ensuring that the
+requesting user is authenticated and authorized. Then, this updated API needs to be
+called from the frontend with the changed details of the media.
+
+The media update API::
+
+The media edit form::
+--The media edit form, which will allow an authorized user to make changes to the
+details of a media post, will be similar to the new media form. However, it will not
+have an upload option, and the fields will be pre-populated with the existing values.
+
+--The call to the update media API will update the media details in the corresponding
+media document in the Media collection, while the video file associated with the
+media remains as it is in the database.
+-This link is added with an edit icon in the Media component, allowing the user who
+posted the media to access the edit page.
+
+
+
+
+

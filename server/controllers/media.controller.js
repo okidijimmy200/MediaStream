@@ -212,6 +212,8 @@ this read media API is called */
 
 const update = async (req, res) => {
   try {
+    /**This method extends the existing media document with the changed details that were
+received in the request body and saves the updated media to the database */
     let media = req.media
     media = extend(media, req.body)
     media.updated = Date.now()
@@ -224,6 +226,8 @@ const update = async (req, res) => {
   }
 }
 
+/**When a PUT request is received at 'api/media/:mediaId', the server will ensure the signed-in user is the original poster of the media content by calling the isPoster
+controller method */
 const isPoster = (req, res, next) => {
   let isPoster = req.media && req.auth && req.media.postedBy._id == req.auth._id
   if(!isPoster){
@@ -231,6 +235,8 @@ const isPoster = (req, res, next) => {
       error: "User is not authorized"
     })
   }
+  /**This method ensures the ID of the authenticated user is the same as the user ID referenced in the postedBy field of the given media document. If the user is
+authorized, the update controller method will be called next in order to update the existing media document with the changes */
   next()
 }
 

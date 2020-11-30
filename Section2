@@ -28,3 +28,33 @@ Listing media by users::
 --To be able to retrieve a list of media that's been uploaded by a specific user from the
 database, we will set up an API with a route that accepts a GET request at
 '/api/media/by/:userId'
+
+Lecture 2:
+Displaying, updating, and deleting media::
+--only registered users will be able to edit the media's details and delete it
+any time after they post it on the application.
+--here we will implement full-stack slices, including backend APIs and frontend views, to display a
+single media post, update details of a media post, and delete a media post from the
+application.
+
+Displaying media::
+--Any visitor to MERN Mediastream will be able to browse to a single media view to
+play a video and read the details associated with it. Every time a specific video is
+loaded on the application, we will also increment the number of views associated
+with the media.
+
+The read media API::
+--The mediaId in the request URL will cause the mediaByID controller method to
+execute and attach the retrieved media document to the request object so that it can
+be accessed in the next method.
+
+--The read media API can be used to render individual media details in a view or to
+pre-populate a media edit form.
+
+The Media component::
+--The Media component will render details of an individual media record and stream
+the video in a basic ReactPlayer with default browser controls.
+
+--In the parent component will fetch the media from the server in a useEffect
+hook, set it to state, and add it to the Media component
+

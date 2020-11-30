@@ -58,8 +58,12 @@ const listByUser = async (params) => {
   }
 }
 
+/**To retrieve the media document that was sent in the response, we need to call this
+read media API in the frontend using a fetch method. */
 const read = async (params, signal) => {
   try {
+    /**This method takes the ID of the media to be retrieved and makes a GET request to the
+read API route using a fetch */
     let response = await fetch(config.serverUrl +'/api/media/' + params.mediaId, {
     method: 'GET',
     signal: signal

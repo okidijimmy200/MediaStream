@@ -38,12 +38,19 @@ const useStyles = makeStyles(theme => ({
 
 export default function Media(props) {
   const classes = useStyles()
+  /**we will also load the video in the Media
+component. The video URL, which is basically the get video API route we set up in
+the backend, is loaded in a ReactPlayer with default browser controls */
   const mediaUrl = props.media._id
         ? `/api/media/video/${props.media._id}`
         : null
   const nextUrl = props.nextUrl
   return (
     <Card className={classes.card}>
+      {/* The Media component will take this data in the props and render it in the view to
+display the details and load the video in a ReactPlayer component. The title, genre,
+and view count details of the media can be rendered in a Material-UI CardHeader
+component in the Media component */}
       <CardHeader className={classes.header}
             title={props.media.title}
             action={
@@ -53,6 +60,8 @@ export default function Media(props) {
       />
       <MediaPlayer srcUrl={mediaUrl} nextUrl={nextUrl} handleAutoplay={props.handleAutoplay}/>
       <List dense>
+        {/* The Media component also renders additional details about the user who posted the
+video, a description of the video, and the date it was created */}
         <ListItem>
           <ListItemAvatar>
             <Avatar className={classes.avatar}>
@@ -61,11 +70,19 @@ export default function Media(props) {
           </ListItemAvatar>
           <ListItemText primary={props.media.postedBy.name}
                         secondary={"Published on " + (new Date(props.media.created)).toDateString()}/>
+                        {/* we will also
+conditionally show edit and delete options if the currently signed-in user is the one
+who posted the media being displayed */}
           { auth.isAuthenticated().user
               && auth.isAuthenticated().user._id == props.media.postedBy._id
+              /**This will ensure that the edit and delete options only render when the current user is
+signed in and is the uploader of the media being displayed */
               && (<ListItemSecondaryAction>
                     <Link to={"/media/edit/" + props.media._id}>
                       <IconButton aria-label="Edit" color="secondary">
+                        {/* The edit option links to
+the media edit form, while the delete option opens a dialog box that can initiate the
+deletion of this particular media document from the database. */}
                         <Edit/>
                       </IconButton>
                     </Link>

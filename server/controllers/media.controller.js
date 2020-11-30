@@ -189,12 +189,18 @@ calling populate to add these user attributes */
   }
 }
 
+/**After the media is updated from this incrementViews method, the read controller method is invoked. The read controller method will
+simply return the retrieved media document in response to the requesting client, */
 const read = (req, res) => {
   return res.json(req.media)
 }
 
+/**A GET request to this API will execute the incrementViews controller method next, which will find the matching media record and increment the views value by 1,
+before saving the updated record to the database */
 const incrementViews = async (req, res, next) => {
   try {
+    /**This method will increment the number of views for a given media by 1 every time
+this read media API is called */
     await Media.findByIdAndUpdate(req.media._id, {$inc: {"views": 1}}, {new: true}).exec()
     next()
   } catch(err){

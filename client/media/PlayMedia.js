@@ -20,6 +20,8 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+/**In the parent component will fetch the media from the server in a useEffect
+hook, set it to state, and add it to the Media component */
 export default function PlayMedia(props) {
   const classes = useStyles()
   let [media, setMedia] = useState({postedBy: {}})
@@ -96,6 +98,9 @@ export default function PlayMedia(props) {
       <div className={classes.root}>
         <Grid container spacing={8}>
           <Grid item xs={8} sm={8}>
+            {/* we will add the Media component in a PlayMedia
+component that fetches the media content from the server in a useEffect hook using
+the read API and passes it to Media as a prop. */}
             <Media media={media} nextUrl={nextUrl} handleAutoplay={handleAutoplay}/>
           </Grid>
           {relatedMedia.length > 0

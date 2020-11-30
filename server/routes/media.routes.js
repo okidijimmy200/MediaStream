@@ -31,6 +31,8 @@ router.route('/api/media/by/:userId')
 /**A GET request to this route will invoke the listByUser method */
     .get(mediaCtrl.listByUser)
 
+    /**To implement the read media API in the backend, we will start by adding a GET route that queries the Media collection with an ID and returns the media document in the
+response */
 router.route('/api/media/:mediaId')
     .get( mediaCtrl.incrementViews, mediaCtrl.read)
     .put(authCtrl.requireSignin, mediaCtrl.isPoster, mediaCtrl.update)

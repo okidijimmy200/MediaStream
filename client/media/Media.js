@@ -58,7 +58,18 @@ component in the Media component */}
             }
             subheader={props.media.genre}
       />
-      <MediaPlayer srcUrl={mediaUrl} nextUrl={nextUrl} handleAutoplay={props.handleAutoplay}/>
+      {/*  We will replace this ReactPlayer with a new
+MediaPlayer component wch will contain a customized ReactPlayer */}
+      <MediaPlayer 
+      /**the mediaPlayer will be passed the current video's source URL, the next video's source URL, and
+the handleAutoPlay method, which are received as props in the Media component
+from the PlayMedia component. */
+      srcUrl={mediaUrl}
+       nextUrl={nextUrl} 
+      /**These URL values and the autoplay handling
+method will be used in the MediaPlayer component to add various video-playing
+options. */
+       handleAutoplay={props.handleAutoplay}/>
       <List dense>
         {/* The Media component also renders additional details about the user who posted the
 video, a description of the video, and the date it was created */}

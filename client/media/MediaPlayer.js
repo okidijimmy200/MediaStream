@@ -43,6 +43,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function MediaPlayer(props) {
+  // set the initial control values of MediaPlayer in the component's state
   const classes = useStyles()
   const [playing, setPlaying] = useState(false)
   const [volume, setVolume] = useState(0.8)      
@@ -56,6 +57,8 @@ export default function MediaPlayer(props) {
   let playerRef = useRef(null)
   const [values, setValues] = useState({
     played: 0, loaded: 0, ended: false
+    /**These values set in the state will allow us to customize the functionalities of the
+corresponding controls in the ReactPlayer component */
   })
   
   useEffect(() => {
@@ -66,9 +69,16 @@ export default function MediaPlayer(props) {
       })
     }
   }, [])
+  /**As we will allow users to play another video in the player from the related media list, we will reset the error
+message if a new video is loaded. We can hide the error message when a new video
+loads with a useEffect hook, by ensuring the useEffect only runs when the video
+source URL changes */
   useEffect(() => {
     setVideoError(false)
+    /**This will ensure the error message isn't shown when a new video is loaded and
+streaming correctly */
   }, [props.srcUrl])
+
   const changeVolume = e => {
     setVolume(parseFloat(e.target.value))
   }
@@ -113,7 +123,12 @@ export default function MediaPlayer(props) {
     setSeeking(false)
     playerRef.seekTo(parseFloat(e.target.value))
   }
+  /**We will use the useRef React hook to initialize the reference
+to null and then set it to the corresponding player element using the ref method */
   const ref = player => {
+    /**The value in playerRef will give access to the player element rendered in the
+browser. We will use this reference to manipulate the player as required, to make the
+custom controls functional */
       playerRef = player
   }
   const format = (seconds) => {
@@ -127,19 +142,31 @@ export default function MediaPlayer(props) {
     }
     return `${mm}:${ss}`
   }
+  /**As a final step for initializing the media player, we will add code for handling errors
+thrown by the player if the specified video source cannot be loaded for any reason */
   const showVideoError = e => {
+    //This method will render an error message in the view above the media player.
     console.log(e)
     setVideoError(true)
   }
 
   return (<div>
+    {/* We
+can show this error message conditionally by adding the following code in the view
+above the ReactPlayer: */}
     {videoError && <p className={classes.videoError}>Video Error. Try again later.</p>}
       <div className={classes.flex}>
         
+{/* we will add this ReactPlayer with these control values and source URL, using the prop sent from the Media component */}
         <ReactPlayer
+        /**We also need to get a reference to this player
+element rendered in the browser so that it can be used in the change-handling code
+for the custom controls. */
           ref={ref}
             width={fullscreen ? '100%':'inherit'}
             height={fullscreen ? '100%':'inherit'}
+            /**Besides setting the control values, we will also add styling to the player, depending
+on whether it is in fullscreen mode. */
             style={fullscreen ? {position:'relative'} : {maxHeight: '500px'}}
             config={{ attributes: { style: { height: '100%', width: '100%'} } }}
             url={props.srcUrl}

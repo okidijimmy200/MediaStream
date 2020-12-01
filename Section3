@@ -74,4 +74,57 @@ and it provides data to these components when it loads in the view.
 --We will also discuss the implementation of
 the handleAutoPlay method that will be passed as a prop to the Media component.
 It will also receive the media detail object, and the video URL for the first item in the
-related media list, which will be treated as the next URL to play
+related media list, which will be treated as the next URL to play.
+
+Lecture 4:
+Customizing the media player::
+--we want to provide users with a media player with more
+controls than those available in the default browser options, and with a look that
+matches the rest of the application. We will customize the player controls on
+ReactPlayer to replace these default controls with a custom look and functionality
+
+--The controls will be added below the video and will include the progress seeking bar;
+the play, pause, next, volume, loop, and fullscreen options; and will also display full
+duration of the video and the amount that's been played
+
+Updating the Media component::
+--The existing Media component contains a basic ReactPlayer with default browser
+controls for playing a given video. We will replace this ReactPlayer with a new
+MediaPlayer component.
+
+Initializing the media player::
+--We will implement the customized media player in the MediaPlayer component.
+This player will render the video streamed from the backend and provide the user
+with different control options. We will incorporate this media-playing functionality
+and the custom control options in the MediaPlayer using a ReactPlayer
+component.
+--ReactPlayer component provides a range of customizations that we will leverage for the media player features
+to be added in this application.
+
+--we will begin by initializing
+the ReactPlayer component with starting values for the controls, before we add the
+custom functionalities and corresponding user-action handling code for each control.
+
+NB:
+--The control values we customize will correspond to the props
+allowed in the ReactPlayer component.
+
+we need to set the initial control values in the component's state. We will start
+with control values that correspond to the following:
+--The playing state of the media
+--The volume of the audio
+--The muted state
+--The duration of the video
+--The seeking state
+--The playback rate of the video
+--The loop value
+--The fullscreen value
+--Video errors
+The played, loaded, and ended states of the video getting streamed
+
+--These values set in the state will allow us to customize the functionalities of the
+corresponding controls in the ReactPlayer component
+
+-The value in playerRef will give access to the player element rendered in the
+browser. We will use this reference to manipulate the player as required, to make the
+custom controls functional

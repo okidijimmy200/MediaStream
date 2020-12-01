@@ -1,0 +1,51 @@
+Customizing the Media Player and Improving SEO
+-->In this chapter, we will;
+--Customizing player controls on ReactPlayer
+--Playing the next video from a list of related videos
+--Autoplaying a list of related media
+--Server-side rendering (SSR) of the PlayMedia view with data to improve
+--search engine optimization (SEO)
+
+----After completing these topics, you will be more adept at designing complex
+interactions between React components in a frontend user interface, and also at
+improving SEO across your full-stack React applications.
+
+Lecture 1:
+Adding a custom media player to MERN Mediastream::
+--we will update the view that plays media with a customized
+ReactPlayer and a related media list that can be set to play automatically when the
+current video ends.
+
+The play media page::
+--When visitors want to view specific media on MERN Mediastream, they will be taken
+to the play media page, which will contain the media details, a media player to
+stream the video, and a list of related media that can be played next.
+
+The component structure::
+--We will compose the component structure in the play media page in a way that
+allows the media data to trickle down to the inner components from the parent
+component. In this case, the PlayMedia component will be the parent component,
+containing the RelatedMedia component and also the Media component, which will
+have a nested MediaPlayer component.
+
+--When individual media links are accessed in the frontend of the application, the
+PlayMedia component will retrieve and load the corresponding media data and list
+of related media from the server. Then, the relevant details will be passed as props to
+the Media and RelatedMedia child components.
+
+--The RelatedMedia component will list and link other related media, and clicking
+any media in this list will re-render the PlayMedia component and its inner
+components with the new data.
+
+we will add a customized media player as a child component. This
+customized MediaPlayer component will also utilize the data passed from
+PlayMedia to stream the current video and link to the next video in the related media
+list.
+
+--In the PlayMedia component, we will add an autoplay toggle that will let users choose to autoplay the videos in the related media list, one after the other. The
+autoplay state will be managed from the PlayMedia component, but this feature will require the data available in the parent component's state to re-render when a video
+ends in the MediaPlayer nested child component, so it can be ensured that the next video starts playing automatically while keeping track of the related list.
+
+--To achieve this, the PlayMedia component will need to provide a state updating
+method as a prop that will be used in the MediaPlayer component to update the
+shared and interdependent state values across these components

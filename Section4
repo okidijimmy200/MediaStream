@@ -31,3 +31,26 @@ Loop when a video ends::
 --Users will be able to set the current video to keep playing in a loop, using a loop
 button. The loop button will render in two states, set and unset.
 
+Lecture 2:
+Volume control::
+--In order to control the volume of the video being played, users will have the option to
+increase or decrease the volume, as well as to mute or unmute. The rendered volume
+controls will be updated based on the user action and current value of the volume.
+
+--A volume-up icon will be rendered if the volume is raised
+--A volume-off icon will be rendered if the user decreases the volume to zero.
+--A volume-mute icon button will be shown if the user clicks the icon to mute the volume
+
+Progress control::
+--n the media player, users will see how much of the video has been loaded and
+played in a progress bar. To implement this feature, we will use a Material-UI
+LinearProgress component to indicate how much of the video has buffered, and
+how much has been played already.
+
+--we'll combine this component with an input element of type range to give users the ability to move the time slider to a
+different part of the video and play from there.
+
+--The look and color for each progress bar will be determined by the styles you define
+for the primaryColor, dashedColorPrimary, and dashed classes.
+
+

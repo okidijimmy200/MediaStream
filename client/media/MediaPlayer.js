@@ -79,10 +79,14 @@ source URL changes */
 streaming correctly */
   }, [props.srcUrl])
 
+  /**Changing the on the input range will set the value in the state value volume accordingly by invoking the method. changeVolume */
   const changeVolume = e => {
+    // The volume value changed in the state will be applied to the ReactPlayer, and this will set the volume of the current media being played.
     setVolume(parseFloat(e.target.value))
   }
+  /**When this IconButton is clicked, it will either mute or unmute the volume by invoking the toggleMuted method */
   const toggleMuted = () => {
+    //The volume will be muted or unmuted, depending on the current value of muted in the state
     setMuted(!muted)
   }
   /**When the user clicks the button, we will update the playing value in the state, so
@@ -100,8 +104,10 @@ onLoop method */
     //The video will play on loop when this loop value is set to true
     setLoop(!loop)
   }
+  /**To update the LinearProgress component when the video is playing or loading, we will use the onProgress event listener to set the current values for played and
+loaded */
   const onProgress = progress => {
-    // We only want to update time slider if we are not currently seeking
+    // We only want to update time slider if we are not currently seeking so we first check the seeking value in the state before setting the played and loaded values.
     if (!seeking) {
       setValues({...values, played:progress.played, loaded: progress.loaded})
     }
@@ -126,14 +132,21 @@ otherwise, it will stop playing and render the replay button. */
   const onDuration = (duration) => {
     setDuration(duration)
   }
+  /*When the user starts dragging by holding the mouse down, we will set seeking to
+true so that the progress values are not set in played and loaded */
   const onSeekMouseDown = e => {
     setSeeking(true)
   }
+  /*As the range value change occurs, we will invoke the onSeekChange method to set the played value and also the ended value, after checking whether the user dragged
+the time slider to the end of the video */
   const onSeekChange = e => {
     setValues({...values, played:parseFloat(e.target.value), ended: parseFloat(e.target.value) >= 1})
   }
+  /*When the user is done dragging and lifts their click on the mouse, we will set seeking to false, and set the seekTo value for the media player to the current
+value set in the input range. */
   const onSeekMouseUp = e => {
     setSeeking(false)
+    /*This way, the user will be able to select any part of the video to play from, and also get visual information on the time progress of the video being streamed. */
     playerRef.seekTo(parseFloat(e.target.value))
   }
   /**We will use the useRef React hook to initialize the reference
@@ -195,13 +208,21 @@ on whether it is in fullscreen mode. */
           <br/>
       </div>
       <div className={classes.controls}>
+        {/* The LinearProgress component will use the played and loaded values in the state to render these bars. It will take the played and loaded values to show each in a
+different color */}
         <LinearProgress color="primary" variant="buffer" value={values.played*100} valueBuffer={values.loaded*100} style={{width: '100%'}} classes={{
               colorPrimary: classes.primaryColor,
               dashedColorPrimary : classes.primaryDashed,
               dashed: classes.dashed
         }}/>
+
+       {/* For time-sliding control, we will add the range input element and define styles to place it over the LinearProgress component.
+The current value of the range will update as the played value changes, so the range value seems to be moving with the progression of the video.  */}
         <input type="range" min={0} max={1}
                 value={values.played} step='any'
+                /**In the case where the user drags and sets the range picker on their own, we will add
+code to handle the onMouseDown, onMouseUp, and onChange events to start the
+video from the desired position */
                 onMouseDown={onSeekMouseDown}
                 onChange={onSeekChange}
                 onMouseUp={onSeekMouseUp}
@@ -223,12 +244,20 @@ media details and start playing the video. */}
           </Link>
         </IconButton>
         <IconButton color="primary" onClick={toggleMuted}>
+          {/* we will conditionally render the different icons in an IconButton, based on the volume, muted, volume_up, and volume_off values */}
+          {/* When this IconButton is clicked, it will either mute or unmute the volume by
+invoking the toggleMuted method */}
           <Icon>{volume > 0 && !muted && 'volume_up' || muted && 'volume_off' || volume==0 && 'volume_mute'}</Icon>
         </IconButton>
+         {/* To allow users to increase or decrease the volume, we will add an input element of type range that will allow users to set a volume value between 0 and 1. */}
+         {/* ------------------------------------------------------------- */}
+{/*  Changing the value on the input range will set the volume value in the state accordingly by invoking the changeVolume method. */} 
         <input type="range" min={0} max={1} step='any' value={muted? 0 : volume} onChange={changeVolume} style={{verticalAlign: 'middle'}}/>
+        
+        
+        
         {/*Users will be able to set the current video to keep playing in a loop, using a loop
 button. The loop button will render in two states, set and unset.
- 
         This loop icon button will display in a different color to indicate whether it has been
 set or unset by the user */}
         <IconButton color={loop? 'primary' : 'default'} onClick={onLoop}>

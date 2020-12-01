@@ -36,9 +36,17 @@ const app = express()
 devBundle.compile(app)
 
 //For SSR with data
+ /*We will use the routes defined in the route configuration file to look for a matching route when the server receives any request. If a match is found, we will use the
+corresponding loadData method declared for this route in the configuration to retrieve the necessary data, before it is injected into the server-rendered markup
+representing the React frontend. */
 const loadBranchData = (location) => {
+  /*This method uses matchRoutes from react-router-config, and the routes
+defined in the route configuration file, to look for a route matching the incoming
+request URL, which is passed as the location argument */
   const branch = matchRoutes(routes, location)
   const promises = branch.map(({ route, match }) => {
+    /*If a matching route is found, then any associated loadData method will be executed to return a Promise
+containing the fetched data, or null if there were no loadData methods. */
     return route.loadData
       ? route.loadData(branch[0].match.params)
       : Promise.resolve(null)
@@ -67,6 +75,8 @@ app.get('*', (req, res) => {
   const sheets = new ServerStyleSheets()
   const context = {}
 
+  /*The loadBranchData defined here will need to be called whenever the server receives a request, so if any matching route is found, we can fetch the relevant data and inject it
+into the React components while rendering server side. */
    loadBranchData(req.url).then(data => {
        const markup = ReactDOMServer.renderToString(
         sheets.collect(

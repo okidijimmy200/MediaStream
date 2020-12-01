@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
+// import screenfull and findDOMNode into the MediaPlayer
 import { findDOMNode } from 'react-dom'
 import screenfull from 'screenfull'
 import IconButton from '@material-ui/core/IconButton'
@@ -61,7 +62,10 @@ export default function MediaPlayer(props) {
 corresponding controls in the ReactPlayer component */
   })
   
+  /*we will use a useEffect hook to add a screenfull change event listener that will update the fullscreen value in the state
+to indicate whether the screen is in fullscreen or not. */
   useEffect(() => {
+    /*This fullscreen value set in the state will be updated when the user interacts with the button for rendering the video in fullscreen mode */
     if (screenfull.enabled) {
       screenfull.on('change', () => {
         let fullscreen = screenfull.isFullscreen ? true : false
@@ -112,7 +116,10 @@ loaded */
       setValues({...values, played:progress.played, loaded: progress.loaded})
     }
   }
+  /* When the user clicks this button, we will use screenfull and findDOMNode to make the video player fullscreen by invoking the onClickFullscreen method */
   const onClickFullscreen = () => {
+    /*We access the element that renders the media player in the browser by using the playerRef reference in findDOMNode and make it fullscreen by using
+screenfull.request. The user can then watch the video in fullscreen, where they can press Esc at any time to exit fullscreen and get back to the PlayMedia view */
    screenfull.request(findDOMNode(playerRef))
   }
   /**We will need to catch the onEnded event, to check whether loop has been set to true, so the playing
@@ -129,6 +136,8 @@ otherwise, it will stop playing and render the replay button. */
       })
     }
   }
+  /*We will get this total duration value for a video by using the onDuration event and then set
+it to the state, so it can be rendered in the time element. */
   const onDuration = (duration) => {
     setDuration(duration)
   }
@@ -157,8 +166,10 @@ browser. We will use this reference to manipulate the player as required, to mak
 custom controls functional */
       playerRef = player
   }
+  /*To make the duration and already played time values readable, */
   const format = (seconds) => {
     const date = new Date(seconds * 1000)
+    /*format function takes the duration value in seconds and converts it to the hh/mm/ss format, using methods from the JavaScript Date API. */
     const hh = date.getUTCHours()
     let mm = date.getUTCMinutes()
     const ss = ('0' + date.getUTCSeconds()).slice(-2)
@@ -266,11 +277,16 @@ loop icon button is clicked, we will update the loop value in the state by invok
 onLoop method */}
           <Icon>loop</Icon>
         </IconButton>
+        {/* we will add an icon button for fullscreen with the other control buttons, */}
         <IconButton color="primary" onClick={onClickFullscreen}>
           <Icon>fullscreen</Icon>
         </IconButton>
         <span style={{float: 'right', padding: '10px', color: '#b83423'}}>
+          {/* To show the time, we can utilize the HTML time element, which takes a datetime
+value, and add it to the view code in MediaPlayer, */}
           <time dateTime={`P${Math.round(duration * values.played)}S`}>
+            {/* we provide the total rounded-off
+seconds that represent the played duration or the total duration of the video. */}
             {format(duration * values.played)}
           </time> / <time dateTime={`P${Math.round(duration)}S`}>
                         {format(duration)}

@@ -53,4 +53,24 @@ different part of the video and play from there.
 --The look and color for each progress bar will be determined by the styles you define
 for the primaryColor, dashedColorPrimary, and dashed classes.
 
+Lecture 3:
+Fullscreen::
+--Users will be able to view the video in fullscreen mode by clicking the fullscreen
+button in the controls.
+--In order to implement a fullscreen option for the video, we will use the screenfull Node module to track when the view is in fullscreen,
+and findDOMNode from react-dom to specify which Document Object Model (DOM) element will be made fullscreen with screenfull.
+
+********yarn add screenfull**********
+
+Played duration::
+--In the custom media controls section of the media player, we want to show the time
+that has already passed and the total duration of the video in a readable time format,
+
+--To show the time, we can utilize the HTML time element, which takes a datetime
+value, and add it to the view code in MediaPlayer,
+
+--The controls added to this custom media player are all mostly based on some of the
+available functionality provided in the ReactPlayer module, and its examples in the
+official documentation.
+
 

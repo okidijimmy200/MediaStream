@@ -99,3 +99,11 @@ current media removed from the list, so only the remaining playlist items are vi
 
 --all the aspects of the play media page can be updated accordingly at the end of a video, if autoplay is set to
 true.
+
+Lecture 5:
+Updating the state when a video ends in MediaPlayer:
+--The MediaPlayer component receives the handleAutoplay method as a prop from PlayMedia. This method will be utilized when the current video finishes playing in
+the player.
+-The autoplay functionality will continue playing the related videos one after the other
+with this implementation. This implementation demonstrates another way to update
+the state across the components when the values are interdependent.

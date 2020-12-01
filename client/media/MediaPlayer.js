@@ -130,7 +130,11 @@ otherwise, it will stop playing and render the replay button. */
     if(loop){
       setPlaying(true)
     } else{
+      /*we will update the listener code for the onEnded event to execute this method only when the loop is set to false for the current video. We don't want
+to play the next video if the user has decided to loop the current video */
       props.handleAutoplay(()=>{
+        /*a callback function is passed to the handleAutoplay method, in order to set the playing value to false and render the replay icon button instead of the play
+or pause icon button, after it is determined in PlayMedia that the autoplay has not been set or that the related media list is empty */
         setValues({...values, ended:true}) 
         setPlaying(false)
       })

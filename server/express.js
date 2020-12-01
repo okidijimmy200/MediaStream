@@ -82,6 +82,8 @@ app.get('*', (req, res) => {
   /*The loadBranchData defined here will need to be called whenever the server receives a request, so if any matching route is found, we can fetch the relevant data and inject it
 into the React components while rendering server side. */
    loadBranchData(req.url).then(data => {
+     /*we use ReactDOMServer to convert the React app to markup. */
+     /*We utilize the loadBranchData method to retrieve the relevant data for the requested view, then pass this data as a prop to the MainRouter component */
        const markup = ReactDOMServer.renderToString(
         sheets.collect(
          <StaticRouter location={req.url} context={context}>

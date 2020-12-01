@@ -12,6 +12,8 @@ import NewMedia from './media/NewMedia'
 import PlayMedia from './media/PlayMedia'
 import EditMedia from './media/EditMedia'
 
+/*While generating markup with ReactDOMServer.renderToString, we pass the
+preloaded data to MainRouter as a prop. */
 const MainRouter = ({data}) => {
   return (<div>
       <Menu/>
@@ -32,9 +34,8 @@ rendered at '/media/edit/:mediaId'. Due to this, we will add a PrivateRoute in
 the MainRouter component */}
         <PrivateRoute path="/media/edit/:mediaId" component={EditMedia}/>
         <Route path="/media/:mediaId" render={(props) => (
-          /*To render the PlayMedia component when individual media links are accessed by
-the user, we will add a Route in MainRouter and mount PlayMedia at
-'/media/:mediaId', */
+          /*To give PlayMedia access to this data from the MainRouter, we  pass this
+data as a prop,*/
             <PlayMedia {...props} data={data} />
         )} />
       </Switch>

@@ -75,3 +75,52 @@ absolute URL to call the read API on the server.
 --This will make the read fetch call compatible with isomorphic-fetch, so it can be
 used without a problem on the server side to retrieve the media data while serverrendering
 the PlayMedia component with data.
+
+Lecture 4:
+Injecting data into the React app::
+
+Applying server-injected data to client code::
+--may be injected from the server if the view is being rendered server-side.
+--we will access the media data
+passed from the server, and add it to the PlayMedia view when the server receives a
+direct request to render this component.
+
+Passing data props to PlayMedia from MainRouter::
+
+
+Rendering received data in PlayMedia::
+--we will check for data passed from the server and set
+the values to the state so the media details are rendered in the view when the server is
+generating the corresponding markup.
+
+--We also set the relatedMedia value to an empty array, as we do not
+intend to render the related media list in the server-generated version. This
+implementation will produce server-generated markup with media data injected in
+the PlayMedia view when the corresponding frontend route request is received
+directly on the server.
+
+Checking the implementation of SSR with data::
+--For MERN Mediastream, any of the links that render PlayMedia should now
+generate markup on the server side with media details preloaded. We can verify that
+the implementation for SSR with data is working properly by opening the app URL in
+a browser, with JavaScript turned off. In the following section, we will look into how
+to achieve this check in the Chrome browser, and what the resulting view should
+show to the user and to a search engine.
+
+Testing in Chrome::
+--Testing this implementation in Chrome just requires updating the Chrome settings
+and loading the application in a tab, with JavaScript blocked.
+
+Loading a page with JavaScript enabled::
+pg 553
+
+PlayMedia view with JavaScript blocked::
+--When JavaScript is blocked in the browser, the PlayMedia view should render with
+only the media details populated. But the user interface is no longer interactive as
+JavaScript is blocked, and only the default browser controls are operational,
+
+--This is the markup that a search-engine bot will read for media content, and also what
+a user will see when no JavaScript loads on the browser. If this implementation
+for SSR with data was not added to the application, then this view would render
+without the associated media details in this scenario, and hence the media
+information would not be read and indexed by search engines

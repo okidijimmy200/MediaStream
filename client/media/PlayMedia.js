@@ -115,8 +115,16 @@ method is called to repopulate the RelatedMedia view with the related media for 
     }
   }
   //render SSR data
+  /*we will check for data passed from the server and set the values to the state so the media details are rendered in the view when the server is
+generating the corresponding markup. */
+//////////////////////////////////////
+/*If media data is received in the props from the server, we assign it to the media value
+in the state */
     if (props.data && props.data[0] != null) {
           media = props.data[0]
+          /*We also set the relatedMedia value to an empty array, as we do not intend to render the related media list in the server-generated version. This
+implementation will produce server-generated markup with media data injected in the PlayMedia view when the corresponding frontend route request is received
+directly on the server. */
           relatedMedia = []
     }
 /**We will also discuss the implementation of

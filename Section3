@@ -48,4 +48,21 @@ ends in the MediaPlayer nested child component, so it can be ensured that the ne
 
 --To achieve this, the PlayMedia component will need to provide a state updating
 method as a prop that will be used in the MediaPlayer component to update the
-shared and interdependent state values across these components
+shared and interdependent state values across these components.
+
+Lecture 2:
+Listing related media::
+--When a user is viewing an individual media on the application, they will also see a
+list of related media on the same page. The related media list will consist of other
+media records that belong to the same genre as the given video and is sorted by the
+highest number of views.
+
+The related media list API::
+--we will use the listed related method  in the PlayMedia component to retrieve a list of media related to the current media loaded in the media
+player. Then this list will be rendered in the RelatedMedia component.
+
+The RelatedMedia component::
+--In the play media page, beside the media loaded in the player, we will load a list of related media in the RelatedMedia component. The RelatedMedia component will
+take the list of related media as a prop from the PlayMedia component and render the details along with a video snapshot of each video in the list,
+
+--

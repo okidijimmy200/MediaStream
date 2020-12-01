@@ -28,6 +28,10 @@ export default function PlayMedia(props) {
   let [relatedMedia, setRelatedMedia] = useState([])
   const [autoPlay, setAutoPlay] = useState(false)
 
+  /**we will add the Media component in a PlayMedia
+component that fetches the media content from the server in a useEffect hook using
+the read API and passes it to Media as a prop. */
+
   useEffect(() => {
     const abortController = new AbortController()
     const signal = abortController.signal
@@ -97,12 +101,16 @@ export default function PlayMedia(props) {
     return (
       <div className={classes.root}>
         <Grid container spacing={8}>
+        {/* In the play media page, beside the media loaded in the player, we will load a list of
+related media in the RelatedMedia component. The RelatedMedia component will
+take the list of related media as a prop from the PlayMedia component and render
+the details along with a video snapshot of each video in the list, */}
           <Grid item xs={8} sm={8}>
-            {/* we will add the Media component in a PlayMedia
-component that fetches the media content from the server in a useEffect hook using
-the read API and passes it to Media as a prop. */}
+
             <Media media={media} nextUrl={nextUrl} handleAutoplay={handleAutoplay}/>
           </Grid>
+          {/* To render this RelatedMedia component in the play media page, we have to add it to the PlayMedia component. The PlayMedia component will use the related media
+list API implemented earlier in this section to retrieve the related media from the backend, and then pass it in the props to the RelatedMedia component. */}
           {relatedMedia.length > 0
             && (<Grid item xs={4} sm={4}>
                     <FormControlLabel className = {classes.toggle}

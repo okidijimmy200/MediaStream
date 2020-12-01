@@ -255,11 +255,16 @@ const remove = async (req, res) => {
   }
 }
 
+/**This method will query the Media collection to find records with the same genre as the media provided, and also exclude this given media record
+from the results returned. */
 const listRelated = async (req, res) => {
   try {
     let media = await Media.find({ "_id": { "$ne": req.media }, "genre": req.media.genre})
+    /**The results returned from the query will be sorted by the highest number of views
+and limited to the top four media records */
       .limit(4)
       .sort('-views')
+  /**Each media object in the returned results will also contain the name and ID of the user who posted the media, as specified in the populate method.*/
       .populate('postedBy', '_id name')
       .exec()
     res.json(media)

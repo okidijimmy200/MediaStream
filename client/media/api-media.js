@@ -115,8 +115,11 @@ const remove = async (params, credentials) => {
   }
 }
 
+/**we will set up a corresponding fetch method that will be used in the PlayMedia component to retrieve the related list of media using this API. */
 const listRelated = async (params, signal) => {
   try {
+    /**This listRelated fetch method will take a media ID and make a GET request to the
+related media list API in the backend */
     let response = await fetch('/api/media/related/'+ params.mediaId, {
     method: 'GET',
     signal: signal,

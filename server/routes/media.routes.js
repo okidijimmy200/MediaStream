@@ -22,7 +22,10 @@ router.route('/api/media/video/:mediaId')
 router.route('/api/media/popular')
     .get(mediaCtrl.listPopular)
 
+/**The :mediaId parameter in the route path will be processed by the mediaByID method It retrieves the media corresponding to this ID from the
+database and attaches it to the request object, so it can be accessed in the next method.*/
 router.route('/api/media/related/:mediaId')
+ /**The API will receive a GET request at '/api/media/related/:mediaId', and the route */
     .get(mediaCtrl.listRelated)
 
     /**To be able to retrieve a list of media that's been uploaded by a specific user from the database, we will set up an API with a route that accepts a GET request at

@@ -62,12 +62,21 @@ export default function RelatedMedia(props) {
           <Typography type="title" className={classes.title}>
             Up Next
           </Typography>
+          {/* In the implementation of the RelatedMedia view, we iterate through the media array received in the props using the map function and render each media item's
+details and video snapshot */}
           {props.media.map((item, i) => {
               return <span key={i}><Card className={classes.card} >
                 <div style={{marginRight: "5px", backgroundColor: "black"}}>
-              <Link to={"/media/"+item._id}><ReactPlayer url={'/api/media/video/'+item._id} width='160px' height='140px'/></Link>
+                  {/* We wrap the ReactPlayer with a link to the individual view of this media. So,clicking on the given video snapshot will re-render the PlayMedia view to load the
+linked media's details */}
+              <Link to={"/media/"+item._id}>
+                {/* to render the video snapshot for each media item, we will use a basic ReactPlayer without the controls */}
+                <ReactPlayer url={'/api/media/video/'+item._id} width='160px' height='140px'/></Link>
               </div>
+              {/* Beside the snapshot, we will display the details of each video including title, genre, created date, and the number of views, */}
                       <div className={classes.details}>
+                        {/* This will render the details next to the video snapshot for each media in the related
+media list that is received in the props */}
                         <CardContent className={classes.content}>
                           <Link to={'/media/'+item._id}><Typography type="title" component="h3" className={classes.mediaTitle} color="primary">{item.title}</Typography></Link>
                           <Typography type="subheading" className={classes.subheading}>

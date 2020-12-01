@@ -73,4 +73,29 @@ value, and add it to the view code in MediaPlayer,
 available functionality provided in the ReactPlayer module, and its examples in the
 official documentation.
 
+Lecture 4:
+Autoplaying related media::
+--In the play media page, users will have the option to autoplay one video after the
+other from the related media list. To make this feature possible, the PlayMedia
+component will manage the autoplay state, which will determine the data and how it
+will be rendered next in the MediaPlayer and RelatedMedia components after the
+current video finishes streaming in the player.
 
+Toggling autoplay::
+--On the play media page, we will add an autoplay toggle option above the related
+media list. Besides letting the user set autoplay, the toggle will also indicate whether
+it is currently set or not.
+
+Handling autoplay across components::
+--When a user selects to set the Autoplay toggle to ON, the functionality desired here is
+that when a video ends, if autoPlay is set to true and the current related list of
+media is not empty, PlayMedia should load the media details of the first video in the
+related list
+
+--In turn, the Media and MediaPlayer components should update with the new media
+details, start playing the new video, and render the controls on the player
+appropriately. The list in the RelatedMedia component should also update with the
+current media removed from the list, so only the remaining playlist items are visible.
+
+--all the aspects of the play media page can be updated accordingly at the end of a video, if autoplay is set to
+true.

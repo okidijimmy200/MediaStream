@@ -77,12 +77,22 @@ component */
     }
   }, [props.match.params.mediaId])
 
+  /*To handle the change to the toggle when the user interacts with it, and to
+reflect this change in the state's autoPlay value, */
   const handleChange = (event) => {
+    /*This autoPlay value, which represents whether the user chose to autoplay all the
+media, will determine what happens when the current video finishes streaming. */
    setAutoPlay(event.target.checked)
   }
+  /*In order to handle this autoplay behavior across the PlayMedia component and its child components, PlayMedia passes a handleAutoPlay method to the Media
+component as a prop to be used by the MediaPlayer component when a video ends */
   const handleAutoplay = (updateMediaControls) => {
+    /*It takes a callback function from the onEnded event listener in the MediaPlayer component. This callback will be executed if autoplay is not
+set or the related media list is empty so that the controls on the MediaPlayer are rendered to show that the video has ended */
     let playList = relatedMedia
     let playMedia = playList[0]
+    /*If autoplay is set and there are more than one related media in the list, then: The first item in the related media list is set as the current
+media object in the state so it can be rendered. The related media list is updated by removing this first item, which will now start playing in the view. */
     if(!autoPlay || playList.length == 0 )
       return updateMediaControls()
    
@@ -96,6 +106,8 @@ component */
             if (data.error) {
              console.log(data.error)
             } else {
+              /*If autoplay is set and there is only one item in the related media list, this last item is set to media so it can start playing, and the listRelated fetch
+method is called to repopulate the RelatedMedia view with the related media for this last item.*/
               setMedia(playMedia)
               setRelatedMedia(data)
             }
@@ -131,6 +143,10 @@ list API implemented earlier in this section to retrieve the related media from 
           /**The media and related media list values stored in the state are used to pass relevant
 props to these child components that are added in the view */
             && (<Grid item xs={4} sm={4}>
+              {/* To add the autoplay toggle option, we will use a Material-UI Switch component
+along with a FormControlLabel, and add it to the PlayMedia component over the
+RelatedMedia component. It will only be rendered when there are media in the
+related media list. */}
                     <FormControlLabel className = {classes.toggle}
                         control={
                           <Switch
@@ -139,6 +155,7 @@ props to these child components that are added in the view */
                             color="primary"
                           />
                         }
+                        // The autoplay toggle label will render according to the current value of autoPlay in the state
                         label={autoPlay ? 'Autoplay ON':'Autoplay OFF'}
                     />
                   <RelatedMedia media={relatedMedia}/>

@@ -1,0 +1,21 @@
+Server-side rendering with data::
+Lecture 1:
+SEO is important for any web application that delivers content to its users and wants
+to make the content easy to find. Generally, content on any web page will have a
+better chance of getting more viewers if the content is easily readable to search
+engines. When a search-engine bot accesses a web URL, it will get the SSR output.
+Hence, to make the content discoverable, the content should be part of the SSR
+output.
+
+--we will use the case of making media details popular across
+search engine results, to demonstrate how to inject data into an SSR view in a MERNbased
+application. We will focus on implementing SSR with data injected for the
+PlayMedia component that is returned at the '/media/:mediaId' path. The
+general implementation steps outlined here can be used to implement SSR with data
+for other views.
+
+--We will first define a
+static route configuration file and use it to update the existing SSR code in the
+backend to inject the necessary media data from the database. Then, we will update
+the frontend code to render this server-injected data in the view, and, finally, check if
+this SSR implementation works as expected.

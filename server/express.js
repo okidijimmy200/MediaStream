@@ -26,6 +26,10 @@ import routes from './../client/routeConfig'
 import 'isomorphic-fetch'
 //end
 
+/*This isomorphic-fetch integration will make sure that the read fetch method, or
+any other fetch method that we defined for the client, can now be used on the server
+as well */
+
 //comment out before building for production
 import devBundle from './devBundle'
 

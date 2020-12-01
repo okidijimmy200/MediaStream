@@ -47,3 +47,31 @@ route when the server receives any request. If a match is found, we will use the
 corresponding loadData method declared for this route in the configuration to
 retrieve the necessary data, before it is injected into the server-rendered markup
 representing the React frontend.
+
+Lecture 3:
+Isomorphic-fetch::
+--We will ensure that any fetch method we defined for the client code can also be used
+on the server by using the isomorphic-fetch Node module.
+
+***yarn add isomorphic-fetch*********
+
+--This isomorphic-fetch integration will make sure that the read fetch method, or
+any other fetch method that we defined for the client, can now be used on the server
+as well
+
+Absolute URLs::
+--One issue with using isomorphic-fetch is that it currently requires the fetch URLs
+to be absolute. So, we need to update the URL used in the read fetch method, defined
+in api-media.js, into an absolute URL.
+
+--Instead of hardcoding a server address in the code, we will set a config variable in
+config.js,
+--This will allow us to define and use separate absolute URLs for the API routes in
+development and in production.
+
+--we will update the read method in api-media.js to make sure it uses an
+absolute URL to call the read API on the server.
+
+--This will make the read fetch call compatible with isomorphic-fetch, so it can be
+used without a problem on the server side to retrieve the media data while serverrendering
+the PlayMedia component with data.

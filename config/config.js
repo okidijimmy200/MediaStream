@@ -7,6 +7,9 @@ const config = {
       'mongodb://' + (process.env.IP || 'localhost') + ':' +
       (process.env.MONGO_PORT || '27017') +
       '/mernproject',
+      /*Instead of hardcoding a server address in the code, we will set a config variable in
+config.js, This will allow us to define and use separate absolute URLs for the API routes in
+development and in production. */
     serverUrl: process.env.serverUrl || 'http://localhost:3000'
   }
   

@@ -65,6 +65,10 @@ const read = async (params, signal) => {
     /**This method takes the ID of the media to be retrieved and makes a GET request to the
 read API route using a fetch */
     let response = await fetch(config.serverUrl +'/api/media/' + params.mediaId, {
+      /*we will update the read method in api-media.js to make sure it uses an
+absolute URL to call the read API on the server. This will make the read fetch call compatible with isomorphic-fetch, so it can be
+used without a problem on the server side to retrieve the media data while serverrendering
+the PlayMedia component with data. */
     method: 'GET',
     signal: signal
   })

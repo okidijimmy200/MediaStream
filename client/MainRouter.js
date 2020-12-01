@@ -32,6 +32,9 @@ rendered at '/media/edit/:mediaId'. Due to this, we will add a PrivateRoute in
 the MainRouter component */}
         <PrivateRoute path="/media/edit/:mediaId" component={EditMedia}/>
         <Route path="/media/:mediaId" render={(props) => (
+          /*To render the PlayMedia component when individual media links are accessed by
+the user, we will add a Route in MainRouter and mount PlayMedia at
+'/media/:mediaId', */
             <PlayMedia {...props} data={data} />
         )} />
       </Switch>

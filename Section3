@@ -65,4 +65,13 @@ The RelatedMedia component::
 --In the play media page, beside the media loaded in the player, we will load a list of related media in the RelatedMedia component. The RelatedMedia component will
 take the list of related media as a prop from the PlayMedia component and render the details along with a video snapshot of each video in the list,
 
---
+Lecture 3:
+The PlayMedia component::
+--The PlayMedia component will render the play media page. This component consists
+of the Media and RelatedMedia child components along with an autoplay toggle,
+and it provides data to these components when it loads in the view.
+
+--We will also discuss the implementation of
+the handleAutoPlay method that will be passed as a prop to the Media component.
+It will also receive the media detail object, and the video URL for the first item in the
+related media list, which will be treated as the next URL to play

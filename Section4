@@ -1,0 +1,33 @@
+Lecture 1:
+Custom media controls::
+--We will add custom player control elements below the video rendered in the
+MediaPlayer component and manipulate their functionality using the options and
+events provided by the ReactPlayer library.
+
+--we will
+implement the play, pause, and replay controls; the play next control; the loop
+functionality; volume control options; progress control options; fullscreen option, and
+also display full duration of the video and the amount that's been played.
+
+Play, pause, and replay::
+--Users will be able to play, pause, and replay the current video. We will implement
+these three options using Material-UI components bound to ReactPlayer
+attributes and events.
+
+--To implement the play, pause, and replay functionality, we will add a play, pause, or
+replay icon button conditionally depending on whether the video is playing, is
+paused, or has ended.
+
+--The play, pause, or replay icons are rendered in this IconButton based on the
+outcome of the ternary operator
+
+Play next::
+--Users will be able to play the next video in the related media list using a play next
+button, which will render depending on whether the next video is available or not.
+--Clicking on this play next button will reload the PlayMedia component with the new
+media details and start playing the video.
+
+Loop when a video ends::
+--Users will be able to set the current video to keep playing in a loop, using a loop
+button. The loop button will render in two states, set and unset.
+

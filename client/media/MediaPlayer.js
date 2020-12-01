@@ -85,10 +85,19 @@ streaming correctly */
   const toggleMuted = () => {
     setMuted(!muted)
   }
+  /**When the user clicks the button, we will update the playing value in the state, so
+the ReactPlayer is also updated. We achieve this by invoking the playPause
+method when this button is clicked */
   const playPause = () => {
+    /**The updated value of playing in the state will play or pause the video in the
+ReactPlayer component accordingly */
     setPlaying(!playing)
   }
+  /**The loop icon color will change based on the value of loop in the state. When this
+loop icon button is clicked, we will update the loop value in the state by invoking the
+onLoop method */
   const onLoop = () => {
+    //The video will play on loop when this loop value is set to true
     setLoop(!loop)
   }
   const onProgress = progress => {
@@ -100,7 +109,11 @@ streaming correctly */
   const onClickFullscreen = () => {
    screenfull.request(findDOMNode(playerRef))
   }
+  /**We will need to catch the onEnded event, to check whether loop has been set to true, so the playing
+value can be updated accordingly. When a video reaches the end, the onEnded method will be invoked. */
   const onEnded = () => {
+    /**if the loop value is set to true, when the video ends it will start playing again;
+otherwise, it will stop playing and render the replay button. */
     if(loop){
       setPlaying(true)
     } else{
@@ -193,11 +206,18 @@ on whether it is in fullscreen mode. */
                 onChange={onSeekChange}
                 onMouseUp={onSeekMouseUp}
                 className={classes.rangeRoot}/>
-
+{/* To implement the play, pause, and replay functionality, we will add a play, pause, or
+replay icon button conditionally depending on whether the video is playing, is
+paused, or has ended, */}
         <IconButton color="primary" onClick={playPause}>
           <Icon>{playing ? 'pause': (values.ended ? 'replay' : 'play_arrow')}</Icon>
         </IconButton>
+        {/* The play next button will be disabled if the related list does not contain any media. */}
         <IconButton disabled={!props.nextUrl} color="primary">
+          {/* The play next icon will basically link to the next URL value passed in as a prop from
+PlayMedia */}
+{/* Clicking on this play next button will reload the PlayMedia component with the new
+media details and start playing the video. */}
           <Link to={props.nextUrl} style={{color: 'inherit'}}>
             <Icon>skip_next</Icon>
           </Link>
@@ -206,7 +226,15 @@ on whether it is in fullscreen mode. */
           <Icon>{volume > 0 && !muted && 'volume_up' || muted && 'volume_off' || volume==0 && 'volume_mute'}</Icon>
         </IconButton>
         <input type="range" min={0} max={1} step='any' value={muted? 0 : volume} onChange={changeVolume} style={{verticalAlign: 'middle'}}/>
+        {/*Users will be able to set the current video to keep playing in a loop, using a loop
+button. The loop button will render in two states, set and unset.
+ 
+        This loop icon button will display in a different color to indicate whether it has been
+set or unset by the user */}
         <IconButton color={loop? 'primary' : 'default'} onClick={onLoop}>
+          {/* The loop icon color will change based on the value of loop in the state. When this
+loop icon button is clicked, we will update the loop value in the state by invoking the
+onLoop method */}
           <Icon>loop</Icon>
         </IconButton>
         <IconButton color="primary" onClick={onClickFullscreen}>
